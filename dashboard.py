@@ -1,9 +1,20 @@
 import streamlit as st
+from tasks import archive_folder_ui, display_contents_ui
 
-from directories import Paths, list_directories
+st.markdown("# Welcome to PARA!")
 
-paths = Paths('Documents/Para')
+task_list = [
+    "Display and open files and directories",
+    "Archive a folder",
+    "Move a folder",
+    "Remove a folder",
+]
+task = st.radio("What do you want to do?", task_list)
 
-option = st.selectbox(label='PARA Folders', options=list_directories(paths.base))
 
-st.write("You selected:", option)
+if task == "Archive a folder":
+    archive_folder_ui()
+elif task == "Display and open files and directories":
+    display_contents_ui()
+
+
