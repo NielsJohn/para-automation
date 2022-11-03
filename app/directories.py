@@ -11,7 +11,7 @@ class Paths:
     @property
     def base(self) -> Path:
         if self._base is None:
-            self._base = Path.home() / self.para_dir
+            self._base = Path.cwd() / self.para_dir
         return self._base
 
     @property
@@ -29,6 +29,10 @@ class Paths:
     @property
     def archive(self) -> Path:
         return self.base / "Archive"
+
+    @property
+    def inbox(self) -> Path:
+        return self.base / "Inbox"
 
 
 def list_directories(source_path: Path) -> list[Path]:
@@ -78,7 +82,3 @@ def remove_directory(directory: Path) -> None:
         None
     """
     directory.rmdir()
-
-
-if __name__ == "__main__":
-    paths = Paths("Documents/Para")
