@@ -2,9 +2,9 @@ from typing import Callable
 
 import streamlit as st
 
-from directories import list_directories, move_directory, list_files, Paths
+from app.core.dir_manipulation import list_directories, move_directory, list_files, ParaPaths
 
-PATHS = Paths("data")
+PATHS = ParaPaths()
 
 
 def task_factory(task: str) -> Callable:

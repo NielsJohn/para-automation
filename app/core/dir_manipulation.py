@@ -2,17 +2,26 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
+from app.settings import settings
+
 
 @dataclass
-class Paths:
-    para_dir: str
-    _base: Path = None
+class ParaPaths:
+    """
+    A class to manage the paths to your para folders.
+    """
+
+    def __post_init__(self) -> None:
+        """
+        Check if PARA folders exist. If not, create them in the home directory.
+        Returns:
+            None
+        """
+        initialize_folders(self.base)
 
     @property
     def base(self) -> Path:
-        if self._base is None:
-            self._base = Path.cwd() / self.para_dir
-        return self._base
+        return Path.home() / "PARA"
 
     @property
     def projects(self) -> Path:
@@ -33,6 +42,25 @@ class Paths:
     @property
     def inbox(self) -> Path:
         return self.base / "Inbox"
+
+
+def initialize_folders(base_dir: Path) -> None:
+    """
+    Create the folders to start with the PARA workflow.
+    Args:
+        base_dir: the directory of your PARA folders will be placed in.
+
+    Returns:
+        None
+    """
+    # create base folder
+    if not base_dir.is_dir():
+        base_dir.mkdir()
+
+    # create subfolders
+    for folder in settings.para_folders:
+        if not (base_dir / folder).is_dir():
+            (base_dir / folder).mkdir()
 
 
 def list_directories(source_path: Path) -> list[Path]:
