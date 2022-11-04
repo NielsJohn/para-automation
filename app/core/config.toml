@@ -1,0 +1,7 @@
+title = "PARA Configuration file"
+
+[para]
+folders = ["Archive", "Areas", "Projects", "Resources", "Inbox"]
+
+[app]
+task_list = ["Display contents", "Archive a folder", "Move a folder", "Remove a folder"]

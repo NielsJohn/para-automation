@@ -2,9 +2,9 @@ from typing import Callable
 
 import streamlit as st
 
-from directories import list_directories, move_directory, list_files, Paths
+from core.dir_manipulation import list_directories, move_directory, list_files, ParaPaths
 
-PATHS = Paths("data")
+PATHS = ParaPaths()
 
 
 def task_factory(task: str) -> Callable:
@@ -37,7 +37,7 @@ def archive_folder() -> None:
         options=[f.name for f in list_directories(child_path)],
     )
 
-    if parent_name is not None:
+    if child_name is not None:
         result = st.button("Archive!")
 
         if result:
