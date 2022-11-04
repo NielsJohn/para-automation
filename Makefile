@@ -1,4 +1,4 @@
-HOST_PATH ?= /Users/Niels/Documents
+HOST_PATH ?= /Users/niels/Documents
 PARA_PATH ?= /data
 CONTAINER_NAME ?= streamlit
 PORT ?= 8501

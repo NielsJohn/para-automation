@@ -37,7 +37,7 @@ def archive_folder() -> None:
         options=[f.name for f in list_directories(child_path)],
     )
 
-    if parent_name is not None:
+    if child_name is not None:
         result = st.button("Archive!")
 
         if result:

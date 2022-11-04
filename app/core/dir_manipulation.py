@@ -19,9 +19,10 @@ class ParaPaths:
         """
         initialize_folders(self.base)
 
+    #TODO make this nice!
     @property
     def base(self) -> Path:
-        return Path.home() / "PARA"
+        return Path.cwd().parent.parent / 'data' / "PARA"
 
     @property
     def projects(self) -> Path:
