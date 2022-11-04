@@ -2,7 +2,7 @@ from typing import Callable
 
 import streamlit as st
 
-from app.core.dir_manipulation import list_directories, move_directory, list_files, ParaPaths
+from core.dir_manipulation import list_directories, move_directory, list_files, ParaPaths
 
 PATHS = ParaPaths()
 

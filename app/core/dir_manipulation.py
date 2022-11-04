@@ -2,7 +2,7 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
-from app.settings import settings
+from settings import settings
 
 
 @dataclass

@@ -1,7 +1,7 @@
 import streamlit as st
 
-from app.core.tasks import task_factory
-from app.settings import settings
+from core.tasks import task_factory
+from settings import settings
 
 st.markdown("# Welcome to PARA!")
 
