@@ -5,11 +5,17 @@ from pathlib import Path
 from settings import settings
 
 
-@dataclass
+def para_path() -> Path:
+    return Path.cwd().parent.parent / settings.internal_path / "PARA"
+
+
+@dataclass(frozen=True)
 class ParaPaths:
     """
     A class to manage the paths to your para folders.
     """
+
+    base: Path = para_path()
 
     def __post_init__(self) -> None:
         """
@@ -18,11 +24,6 @@ class ParaPaths:
             None
         """
         initialize_folders(self.base)
-
-    #TODO make this nice!
-    @property
-    def base(self) -> Path:
-        return Path.cwd().parent.parent / 'data' / "PARA"
 
     @property
     def projects(self) -> Path:

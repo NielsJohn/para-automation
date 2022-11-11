@@ -1,5 +1,5 @@
-HOST_PATH ?= /Users/niels/Documents
-PARA_PATH ?= /data
+HOST_PATH ?= Users/niels/Documents
+INTERNAL_PATH ?= data
 CONTAINER_NAME ?= streamlit
 PORT ?= 8501
 IMAGE_NAME ?= $(CONTAINER_NAME)-image
@@ -17,5 +17,6 @@ run:
 		-d \
 		--name=$(CONTAINER_NAME) \
 		--publish $(PORT):$(PORT) \
-		-v $(HOST_PATH):$(PARA_PATH) \
+		-e INTERNAL_PATH=$(INTERNAL_PATH) \
+		-v /$(HOST_PATH):/$(INTERNAL_PATH) \
 			$(IMAGE_NAME)
