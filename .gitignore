@@ -1,0 +1,8 @@
+# Ignore .env files
+.env
+
+# Ignore Mac system files
+.DS_store
+
+# Ignore pyenv files
+.python-version
