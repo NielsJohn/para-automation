@@ -1,8 +1,19 @@
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
 import toml
 from dotenv import load_dotenv
+
+
+def is_docker() -> bool:
+    """
+    Check if some python code runs from inside a docker container.
+    Returns:
+        True if yes, False if not.
+    """
+    cgroup = Path("/proc/self/cgroup")
+    return Path('/.dockerenv').is_file() or (cgroup.is_file() and cgroup.read_text().find("docker") > -1)
 
 
 class Environment:
@@ -40,16 +51,6 @@ class Settings:
     @property
     def internal_path(self) -> str:
         return self.env.internal_path
-
-
-def is_docker() -> bool:
-    """
-    Check if some python code runs from inside a docker container.
-    Returns:
-        True if yes, False if not.
-    """
-    cgroup = Path("/proc/self/cgroup")
-    return Path('/.dockerenv').is_file() or (cgroup.is_file() and cgroup.read_text().find("docker") > -1)
 
 
 settings = Settings()
