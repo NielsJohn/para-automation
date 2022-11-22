@@ -2,11 +2,14 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
-from settings import settings
+from settings import settings, is_docker
 
 
 def para_path() -> Path:
-    return Path.cwd().parent.parent / settings.internal_path / "PARA"
+    if is_docker():
+        return Path.cwd().parent.parent / settings.INTERNAL_PATH / "PARA"
+    else:
+        return Path.home().parent.parent / settings.INTERNAL_PATH / "PARA"
 
 
 @dataclass(frozen=True)
@@ -60,7 +63,7 @@ def initialize_folders(base_dir: Path) -> None:
         base_dir.mkdir()
 
     # create subfolders
-    for folder in settings.para_folders:
+    for folder in settings.PARA_FOLDERS:
         if not (base_dir / folder).is_dir():
             (base_dir / folder).mkdir()
 
@@ -112,3 +115,7 @@ def remove_directory(directory: Path) -> None:
         None
     """
     directory.rmdir()
+
+
+if __name__ == '__main__':
+    path = para_path()

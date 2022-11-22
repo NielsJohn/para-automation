@@ -1,9 +1,8 @@
-import os
 from dataclasses import dataclass
 from pathlib import Path
 
 import toml
-from dotenv import load_dotenv
+from pydantic import BaseSettings
 
 
 def is_docker() -> bool:
@@ -16,25 +15,9 @@ def is_docker() -> bool:
     return Path('/.dockerenv').is_file() or (cgroup.is_file() and cgroup.read_text().find("docker") > -1)
 
 
-class Environment:
-    def __init__(self) -> None:
-        if is_docker():
-            load_dotenv()
-        else:
-            env_file = Path().cwd().parent / "environment" / ".env"
-            load_dotenv(env_file)
-        self._internal_path = os.getenv("INTERNAL_PATH")
-
-    @property
-    def internal_path(self) -> str | None:
-        return self._internal_path
-
-
 @dataclass
-class Settings:
+class ParaSettings:
     """A class to store settings."""
-
-    env: Environment = Environment()
 
     def __post_init__(self) -> None:
         with open("core/config.toml", "r") as file:
@@ -48,9 +31,20 @@ class Settings:
     def task_list(self) -> list[str]:
         return self.toml_content.get("app").get("task_list")
 
-    @property
-    def internal_path(self) -> str:
-        return self.env.internal_path
+
+para_settings = ParaSettings()
+
+
+class Settings(BaseSettings):
+    PARA_FOLDERS: list[str] = para_settings.para_folders
+    TASK_LIST: list[str] = para_settings.task_list
+    INTERNAL_PATH: str
+
+    class Config:
+        if not is_docker():
+            env_file = Path().cwd() / "environment" / ".env"
+        else:
+            ...
 
 
 settings = Settings()
