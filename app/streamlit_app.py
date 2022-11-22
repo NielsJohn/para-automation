@@ -7,7 +7,7 @@ from core.tasks import task_factory
 st.markdown("# Welcome to PARA!")
 
 # let the user select an action
-action = st.radio("What do you want to do?", settings.task_list)
+action = st.radio("What do you want to do?", settings.TASK_LIST)
 try:
     # get task from task factory
     task = task_factory(action)
